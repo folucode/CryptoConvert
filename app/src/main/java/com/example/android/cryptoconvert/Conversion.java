@@ -1,12 +1,14 @@
 package com.example.android.cryptoconvert;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static android.text.TextUtils.isEmpty;
 
 public class Conversion extends AppCompatActivity {
 
@@ -61,18 +63,24 @@ public class Conversion extends AppCompatActivity {
 
     }
 
-         @SuppressLint("DefaultLocale")
         public void convert(View view) {
 
             EditText initValue = findViewById(R.id.init_value);
-            double flatValue = Double.parseDouble(initValue.getText().toString());
+            String flatValue = initValue.getText().toString();
 
-            EditText btcValue = findViewById(R.id.btc_value);
-            btcValue.setText(String.valueOf(Btc * flatValue));
+            if (isEmpty(flatValue)) {
 
-            EditText ethValue = findViewById(R.id.eth_value);
-            ethValue.setText(String.valueOf(Eth * flatValue));
+                Toast.makeText(this, "value cannot be empty", Toast.LENGTH_SHORT).show();
 
+            } else {
+                EditText btcValue = findViewById(R.id.btc_value);
+                btcValue.setText(String.valueOf(Btc * Integer.parseInt(flatValue)));
+
+                EditText ethValue = findViewById(R.id.eth_value);
+                ethValue.setText(String.valueOf(Eth * Integer.parseInt(flatValue)));
+            }
         }
-    }
+
+
+}
 
